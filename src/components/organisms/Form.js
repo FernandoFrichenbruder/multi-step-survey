@@ -8,20 +8,7 @@ function Form() {
 
     const [page, setPage] = useState(0);
 
-    const SurveyStep = () => {       
-        switch ( page ) {
-            case 0:
-                return <Identify />
-            case 1:
-                return <Details />
-            case 2:
-                return <Favorites />
-            case 3:
-                return <Summary />
-            default:
-                return <p>Ops, something went wrong</p> //Create some default
-        }
-    }
+    const SurveySteps = [<Identify />, <Details />, <Favorites />, <Summary />];
 
     return (
         <div className='form'>
@@ -29,7 +16,7 @@ function Form() {
                 <p>Some title goes here</p>
             </header>
             <section>
-                <SurveyStep />
+                {SurveySteps[page]}
             </section>
             <footer>
 
@@ -41,7 +28,7 @@ function Form() {
                 </button>
 
                 <button
-                    disabled={page === 3}
+                    disabled={page === SurveySteps.length -1}
                     onClick={() => {setPage((currentPage) => currentPage + 1)}}
                 >
                     Next
