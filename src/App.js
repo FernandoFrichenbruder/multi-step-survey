@@ -1,4 +1,5 @@
 import './App.css';
+import Form from './components/organisms/Form';
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
         <p>
           Multi-step form...
         </p>
+
+        <Form />
         
       </header>
     </div>
