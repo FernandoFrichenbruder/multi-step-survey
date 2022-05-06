@@ -1,29 +1,37 @@
 import React from 'react'
+import Box from '@mui/material/Box'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
 
 function Details() {
   return (
-    <div className='step'>
-        <header>
-            <h1>Details</h1>
-        </header>
-        <div className='form-section'>
-            <div className='form-group'>
-                <label>Age</label>
-                <select name='age'>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                </select>
-            </div>
-        
-            <div className='form-group'>
-                <legend>Gender</legend>
-                <input type="radio" name="gender" value="Male" id='male' />
-                <label for='male'>Male</label>
-                <input type="radio" name="gender" value="Female" id='female' />
-                <label for='female'>Female</label>
-            </div>
-        </div>
-    </div>
+    <Box
+        sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}
+        autoComplete="off"
+    >
+        <h1>Details</h1>
+
+        <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+            <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="female"
+                name="radio-buttons-group"
+            >
+                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                <FormControlLabel value="other" control={<Radio />} label="Other" />
+            </RadioGroup>
+        </FormControl>
+    </Box>
   )
 }
 

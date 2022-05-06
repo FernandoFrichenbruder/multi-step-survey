@@ -1,28 +1,39 @@
 import React from 'react'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormLabel from '@mui/material/FormLabel'
+import Checkbox from '@mui/material/Checkbox'
 
 function Favorites() {
   return (
-    <div className='step'>
-        <header>
-            <h1>Favorites</h1>
-        </header>
-        <div className='form-section'>
-            <div className='form-group'>
-                <label>Favorite Book</label>
-                <input type="text" placeholder='Favorite Book' name='favoriteBook' />
-            </div>
+    <Box
+        sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}
+        autoComplete="off"
+    >
+        <h1>Favorites</h1>
         
-            <div className='form-group'>
-                <legend>Favorite Color</legend>
+        <TextField
+            label="Favorite Book"
+            id="favorite-book"
+            name="favorite-book"
+            size="small"
+        />
 
-                <input type="checkbox" name="favoriteColor" value="Blue" />
-                <label for="favoriteColor">Blue</label>
-
-                <input type="checkbox" name="favoriteColor" value="Black" />
-                <label for="favoriteColor">Black</label>
-            </div>
-        </div>
-    </div>
+        <p></p>
+        <FormGroup>
+            <FormLabel id="demo-checkbox-group-label">Favorite Color</FormLabel>
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Blue" />
+            <FormControlLabel control={<Checkbox />} label="Black" />
+        </FormGroup>
+        
+    </Box>
   )
 }
 

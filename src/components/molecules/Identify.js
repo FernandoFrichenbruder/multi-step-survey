@@ -1,24 +1,35 @@
 import React from 'react'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
 
 function Identify() {
   return (
-    <div className='step'>
-        <header>
-            <h1>Identify</h1>
-        </header>
-        <div className='form-section'>
-            <div className='form-group'>
-                <label>Name</label>
-                <input type="text" placeholder='Name' name='name' />
-            </div>
+    <Box
+        sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}
+        autoComplete="off"
+    >
+        <h1>Identify</h1>
         
-            <div className='form-group'>
-                <label>E-mail</label>
-                <input type="email" placeholder='E-mail' name='email' />
-            </div>
-        </div>
-    </div>
+        <TextField
+            label="Name"
+            id="name"
+            name="name"
+            size="small"
+        />
 
+        <TextField
+            label="E-mail"
+            id="email"
+            name="email"
+            autoComplete="email"
+            size="small"
+        />
+    </Box>
   )
 }
 
