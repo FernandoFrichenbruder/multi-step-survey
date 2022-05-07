@@ -1,0 +1,92 @@
+
+{
+    "steps": [
+        {
+            "title": "Identify",
+            "inputs": [
+                {
+                    "name": "name",
+                    "type": "text",
+                    "label": "Your name"
+                },
+                {
+                    "name": "email",
+                    "type": "text",
+                    "label": "Your e-mail"
+                }
+            ]
+        },
+        {
+            "title": "Details",
+            "inputs": [
+                {
+                    "name": "age",
+                    "type": "select",
+                    "label": "Your age",
+                    "options": [
+                        {
+                            "value": "18",
+                            "label": "18"
+                        },
+                        {
+                            "value": "19",
+                            "label": "19"
+                        },
+                        {
+                            "value": "20",
+                            "label": "20"
+                        }
+                    ]
+                },
+                {
+                    "name": "gender",
+                    "type": "radio",
+                    "label": "Gender",
+                    "options": [
+                        {
+                            "value": "male",
+                            "label": "Male"
+                        },
+                        {
+                            "value": "female",
+                            "label": "Female"
+                        },
+                        {
+                            "value": "other",
+                            "label": "Other"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Favorites",
+            "inputs": [
+                {
+                    "name": "favorite-book",
+                    "type": "text",
+                    "label": "Favorite Book"
+                },
+                {
+                    "name": "favorite-colors",
+                    "type": "checkbox",
+                    "label": "Favorite Colors",
+                    "options": [
+                        {
+                            "value": "blue",
+                            "label": "Blue"
+                        },
+                        {
+                            "value": "red",
+                            "label": "Red"
+                        },
+                        {
+                            "value": "black",
+                            "label": "Black"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

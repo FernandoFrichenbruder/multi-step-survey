@@ -1,50 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack';
-import Identify from '../molecules/Identify'
-import Details from '../molecules/Details'
-import Favorites from '../molecules/Favorites'
-import Summary from '../molecules/Summary'
+import Stack from '@mui/material/Stack'
+import Step  from '../molecules/Step'
 
-function Form() {
+export default class Form extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            page: 0,
+            surveySteps: []
+        }
+    }
 
-    const [page, setPage] = useState(0);
+    async componentDidMount() {
+        const response = await fetch('mock.json', {headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }});
+        const data = await response.json();
+        data.steps.forEach((e) => {
+            this.setState(prevState => ({
+                surveySteps: [...prevState.surveySteps, <Step title={e.title} inputs={e.inputs} /> ]
+              }))
+        })
+    }
+        
+    render() {
+        return (
+            <Box>
+                {this.state.surveySteps[this.state.page]}
 
-    const SurveySteps = [<Identify />, <Details />, <Favorites />, <Summary />]
+                <Stack spacing={2} direction="row" alignItems="center">
+                    <Button
+                        variant="contained"
+                        disabled={this.state.page === 0}
+                        onClick={() => this.setState({ page:  this.state.page - 1 })}
+                    >
+                        Prev
+                    </Button>
 
-    return (
-        <Box
-            sx={{
-                '& > :not(style)': { m: 1, width: '25ch' },
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-            component="form"
-        >
-            {SurveySteps[page]}
+                    <Button
+                        variant="contained"
+                        disabled={this.state.page === this.state.surveySteps.length -1}
+                        onClick={() => this.setState({ page:  this.state.page + 1 })}
+                    >
+                        Next
+                    </Button>
 
-            <Stack spacing={2} direction="row" alignItems="center">
-                <Button 
-                    variant="contained"
-                    disabled={page === 0}
-                    onClick={() => {setPage((currentPage) => currentPage - 1)}}
-                >
-                    Prev
-                </Button>
-
-                <Button 
-                    variant="contained"
-                    disabled={page === SurveySteps.length -1}
-                    onClick={() => {setPage((currentPage) => currentPage + 1)}}
-                >
-                    Next
-                </Button>
-
-            </Stack>
-        </Box>
-    )
+                </Stack>
+            </Box>
+        )
+    }
 }
-
-export default Form

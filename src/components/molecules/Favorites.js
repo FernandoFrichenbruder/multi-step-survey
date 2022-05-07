@@ -29,7 +29,7 @@ function Favorites() {
         <p></p>
         <FormGroup>
             <FormLabel id="demo-checkbox-group-label">Favorite Color</FormLabel>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Blue" />
+            <FormControlLabel control={<Checkbox />} label="Blue" />
             <FormControlLabel control={<Checkbox />} label="Black" />
         </FormGroup>
         
