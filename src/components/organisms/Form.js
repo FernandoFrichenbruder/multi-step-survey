@@ -9,18 +9,35 @@ export default class Form extends React.Component {
         super(props)
         this.state = {
             page: 0,
-            surveySteps: []
+            surveySteps: [],
+            formData: {}
         }
     }
+
+    setFormDataState = (key, newValue) => {
+        let newFormData = this.state.formData
+        newFormData[key] = newValue
+        this.setState({formData: {...newFormData}})
+
+    }
+
+    getFormDataState = (key) => {
+        return this.state.formData[key]
+    }
+
 
     async componentDidMount() {
         const response = await fetch('mock.json', {headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }});
         const data = await response.json();
         data.steps.forEach((e) => {
+            e.inputs.forEach((input) => {
+                this.state.formData[input.name] = ''
+            })
             this.setState(prevState => ({
-                surveySteps: [...prevState.surveySteps, <Step title={e.title} inputs={e.inputs} /> ]
-              }))
+                surveySteps: [...prevState.surveySteps, <Step title={e.title} inputs={[...e.inputs]} setFormDataState={this.setFormDataState} getFormDataState={this.getFormDataState} /> ]
+             }))
         })
+
     }
         
     render() {

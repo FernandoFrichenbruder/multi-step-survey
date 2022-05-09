@@ -12,28 +12,64 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export default class InputRender extends Component { 
+    constructor(props) {
+        super(props)
+        this.value = ''
+        this.state = {
+            data: {},
+            checkedState: []
+        }
+    }
+
+    handleChange = (event) => {
+        this.state.data[this.props.input.name] = event.target.value
+        this.props.setFormDataState(this.props.input.name, event.target.value)
+      }
+
+    handleChange1 = (e) => {
+        const { value, checked } = e.target;
+
+        if (checked) {
+          this.setState({
+            checkedState: [...this.state.checkedState, value],
+            response: [...this.state.checkedState, value],
+          });
+        }
+
+        else {
+          this.setState({
+            checkedState: this.state.checkedState.filter((e) => e !== value),
+            response: this.state.checkedState.filter((e) => e !== value),
+          });
+        }
+
+        this.props.setFormDataState(this.props.input.name, this.state.checkedState)
+    }
 
 
     render() {
-        let teste
-
+        let input
         switch(this.props.input.type) {
             case "text":
-                teste = <TextField
+                input = <TextField
                             label={this.props.input.label}
-                            id={this.props.input.name}
+                            id={this.props.getFormDataState(this.props.input.name)}
                             name={this.props.input.name}
                             size="small"
+                            value={this.state.data[this.props.input.name]}
+                            onChange={this.handleChange}
+
                         />
                 break;
             case 'select':
-                teste = <FormControl fullWidth>
+                input = <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">{this.props.input.label}</InputLabel>
                             <Select
                             labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={0}
+                            id={this.props.input.name}
+                            name={this.props.input.name}
                             label={this.props.input.label}
+                            defaultValue={this.state.data[this.props.input.name]}
                             onChange={this.handleChange}
                             >
                                 {
@@ -45,39 +81,49 @@ export default class InputRender extends Component {
                         </FormControl>
                 break;
             case 'checkbox':
-                teste = <FormGroup>
-                            <FormLabel id="demo-checkbox-group-label">{this.props.input.label}</FormLabel>
+                input = <FormGroup>
+                            <FormLabel id={this.props.input.name}>{this.props.input.label}</FormLabel>
                             {
                                 this.props.input.options.map((e, key) => 
-                                    <FormControlLabel value={e.value} control={<Checkbox />} label={e.label} key={key} />
+                                    <FormControlLabel
+                                        control={<Checkbox  />}
+                                        label={e.label}
+                                        key={key}
+                                        value={e.value}
+                                        name={this.props.input.name}
+                                        onChange={this.handleChange1}
+                                        />
+                                        
                                 )
                             }
                         </FormGroup>
                 break;
             case 'radio':
-                teste = <FormControl>
-                        <FormLabel id="demo-radio-buttons-group-label">{this.props.input.label}</FormLabel>
+                input = <FormControl>
+                        <FormLabel id={this.props.input.name}>{this.props.input.label}</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
-                            name="radio-buttons-group"
+                            name={this.props.input.name}
+                            onChange={this.handleChange}
+                            value={this.state.data[this.props.input.name]}
                         >
                             {
                                 this.props.input.options.map((e, key) => 
-                                    <FormControlLabel value={e.value} control={<Radio />} label={e.label} key={key} />
+                                    <FormControlLabel  value={e.value} control={<Radio />} label={e.label} key={key} />
                                 )
                             }
                         </RadioGroup>
                     </FormControl>
                 break;
             default:
-                teste = <h1>Opps, something went wrong</h1>
+                input = <h1>Opps, something went wrong</h1>
                 break;
         }
 
         
 
         return (
-            <div>{teste}</div>
+            <div>{input}</div>
         )
   }
 }

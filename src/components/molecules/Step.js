@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import InputRender from './InputRender'
 
 export default class Step extends Component {
+    
     render() {
         return (
             <Box
@@ -16,8 +17,8 @@ export default class Step extends Component {
             >
                 <h1>{this.props.title}</h1>
                 {
-                    this.props.inputs.map((e, key) => {
-                        return <InputRender input={e} key={key} />
+                    this.props.inputs.map((input, key) => {
+                        return <InputRender input={input} key={key} value={this.props.getFormDataState(input.name)} setFormDataState={this.props.setFormDataState} getFormDataState={this.props.getFormDataState}  />
                     })
                 }
                 
