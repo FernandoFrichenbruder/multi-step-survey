@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Step  from '../molecules/Step'
+import Summary from '../molecules/Summary'
 
 export default class Form extends React.Component {
     constructor(props) {
@@ -25,6 +26,10 @@ export default class Form extends React.Component {
         return this.state.formData[key]
     }
 
+    getState = () => {
+        return this.state.formData
+    }
+
 
     async componentDidMount() {
         const response = await fetch('mock.json', {headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }});
@@ -36,11 +41,16 @@ export default class Form extends React.Component {
             this.setState(prevState => ({
                 surveySteps: [...prevState.surveySteps, <Step title={e.title} inputs={[...e.inputs]} setFormDataState={this.setFormDataState} getFormDataState={this.getFormDataState} /> ]
              }))
+             
         })
+        this.setState(prevState => ({
+            surveySteps: [...prevState.surveySteps, <Summary getState={this.getState} /> ]
+         }))
 
     }
         
     render() {
+        console.log('data ' + JSON.stringify(this.state.formData))
         return (
             <Box>
                 {this.state.surveySteps[this.state.page]}
